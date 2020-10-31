@@ -1,0 +1,23 @@
+FROM nvcr.io/nvidia/nvhpc:20.9-devel-ubuntu20.04
+
+ENV PORT 80
+
+# install apt packages
+RUN apt-get update
+RUN apt-get install -y apt-utils \
+                       wget \
+                       tmux \
+                       ca-certificates \
+                       mlocate
+
+WORKDIR /development
+
+# setup some system config stuff
+RUN cd /development
+RUN git clone https://github.com/costat/sysConfig.git
+RUN cp sysConfig/vimrc /etc/vim/vimrc
+RUN cp sysConfig/tmux.conf /etc/tmux.conf
+
+# get porescale & move to stdpar for development
+RUN git clone https://github.com/costat/poreScale.git
+RUN cd poreScale && git checkout stdpar
