@@ -19,18 +19,18 @@ RUN cp sysConfig/vimrc /etc/vim/vimrc
 RUN cp sysConfig/tmux.conf /etc/tmux.conf
 
 # get gcc-10 and make it "default"
-RUN apt-get install gcc-10
-RUN apt-get install g++-10
-
-# install clang
-RUN apt-get install clang-format clang-tidy clang-tools clang clangd libc++-dev \
-                    libc++1 libc++abi-dev libc++abi1 libclang-dev libclang1 \
-                    liblldb-dev libllvm-ocaml-dev libomp-dev libomp5 lld lldb llvm-dev \
-                    llvm-runtime llvm python-clang
+RUN apt-get install -y gcc-10
+RUN apt-get install -y g++-10
 
 RUN rm /usr/bin/gcc && rm /usr/bin/g++
 RUN ln -s /usr/bin/gcc-10 /usr/bin/gcc && \
     ln -s /usr/bin/g++-10 /usr/bin/g++
+
+# setup tbb
+RUN wget https://github.com/oneapi-src/oneTBB/releases/download/v2020.3/tbb-2020.3-lin.tgz
+RUN tar zxvf tbb-2020.3-lin.tgz
+RUN cp /development/sysConfig/tbbvars.sh tbb/bin/tbbvars.sh
+RUN source tbb/bin/tbbvars.sh intel64
 
 # get porescale & move to stdpar for development
 RUN git clone https://github.com/costat/poreScale.git
