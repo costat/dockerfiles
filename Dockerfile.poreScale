@@ -8,7 +8,8 @@ RUN apt-get install -y apt-utils \
                        wget \
                        tmux \
                        ca-certificates \
-                       mlocate
+                       mlocate \
+                       htop
 
 WORKDIR /development
 
