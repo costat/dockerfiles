@@ -1,4 +1,4 @@
-FROM nvcr.io/nvidia/nvhpc:20.9-devel-ubuntu20.04
+FROM nvcr.io/nvidia/nvhpc:20.11-devel-cuda11.1-ubuntu20.04
 
 ENV PORT 80
 
